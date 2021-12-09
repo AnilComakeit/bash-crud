@@ -1,25 +1,34 @@
 #!/bin/bash 
- 
+red=`tput setaf 1`
+green=`tput setaf 2`
+yellow=`tput setaf 3`
+blue=`tput setaf 4`
+magenta=`tput setaf 5`
+cyan=`tput setaf 6`
+bold=`tput bold`
+
 #Adding Data.
 addData(){
-    read -p "Enter Emp ID: " emp_id
-    read -p "Enter Emp Name: " emp_name
-    read -p "Enter Emp SurName: " emp_sname
-    read -p "Enter Emp Experience: " emp_exp
-    read -p "Enter Emp Customer: " emp_cust         
+    
+    read -p ${yellow}"Enter Emp ID: " emp_id
+    read -p ${yellow}"Enter Emp Name: " emp_name
+    read -p ${yellow}"Enter Emp SurName: " emp_sname
+    read -p ${yellow}"Enter Emp Experience: " emp_exp
+    read -p ${yellow}"Enter Emp Customer: " emp_cust         
     cat Employee_Data.txt| cut -d " " -f 1 | grep -q $emp_id                                                                                                                                                                                                                                                                             
     if [ $? -eq 0 ]
          then
-           echo "Id Already present Try another id "
+           echo ${bold}"Id Already present Try another id "
     else
-     echo "$emp_id ----  $emp_name ----  $emp_sname ----  ${emp_exp}Years ----  $emp_cust" >> /home/anil/Desktop/CRUD/Employee_Data.txt
-     echo "Inserted !!!"            
-    fi    
+     echo "$emp_id ---- $emp_name ---- $emp_sname ---- ${emp_exp}Years ---- $emp_cust" >> Employee_Data.txt
+     echo ${bold}"Inserted !!!"            
+    fi   
+} 
 #Updating Data
 updateData(){
     read -p "Enter Old Data of Employee: " oldData
     read -p "Enter New Data of Employee: " newData     
-    sed -i "s/$oldData/$newData/" /home/anil/Desktop/CRUD/Employee_Data.txt
+    sed -i "s/$oldData/$newData/" /Employee_Data.txt
     if [ $? -eq 0 ]
         then
             echo "Updated !!!"        
@@ -28,7 +37,7 @@ updateData(){
 #DeleteData
 deleteData(){
     read -p "Data to Delete of Employee: " dataToDelete
-    grep -v $dataToDelete  /home/anil/Desktop/CRUD/Employee_Data.txt > tmpfile && mv tmpfile /home/anil/Desktop/CRUD/Employee_Data.txt          
+    grep -v $dataToDelete  /Employee_Data.txt > tmpfile && mv tmpfile /Employee_Data.txt          
      if [ $? -eq 0 ]
         then
             echo "Deleted !!!"        
@@ -37,19 +46,23 @@ deleteData(){
 #UpdateData
 getById(){
     read -p "Enter Data to Search: " searchData
-    cat /home/anil/Desktop/CRUD/Employee_Data.txt | grep $searchData
+    cat /Employee_Data.txt | grep $searchData
 }
 
 #Get ALL Data
 getAllData(){
-    cat /home/anil/Desktop/CRUD/Employee_Data.txt
+    cat /Employee_Data.txt
 } 
 #Exit 
 doExit(){
      echo "Exiting with status 0....."
      exit 0
  }
-PS3="Please Enter Your Choice: "
+
+
+ 
+PS3=${red}"Please Enter Your Choice: ${green}"
+echo ${green}
 Options=("Add Employee" "Edit Employee" "Delete Employee" "Search Employee" "View All Employee Data" "Exit")
 
 select option in "${Options[@]}"     

@@ -16,12 +16,12 @@ read -p "Enter Old Name of Employee: " oldData
     read -p "Enter New Name of Employee: " newData 
     # cat Employee_Data.txt| cut -d " " -f 1 | grep -q $emp_id                                                                                                                                                                                                                                                                             
     # if [ $? -eq 0 ]    
-    # sed -i "s/$oldData/$newData/" Employee_Data.txt
-    # if [ $? -eq 0 ]
-    #     then
-    #         echo "Name Updated !!!"   
-    #         exit 0     
-    # fi
+    sed -i "s/$oldData/$newData/" Employee_Data.txt
+    if [ $? -eq 0 ]
+        then
+            echo "Name Updated !!!"   
+            exit 0     
+    fi
 }
 
 updateData(){

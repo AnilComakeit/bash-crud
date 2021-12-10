@@ -1,11 +1,5 @@
 #!/bin/bash 
-red=`tput setaf 1`
-green=`tput setaf 2`
-yellow=`tput setaf 3`
-blue=`tput setaf 4`
-magenta=`tput setaf 5`
-cyan=`tput setaf 6`
-bold=`tput bold`
+source config.sh
 
 #Adding Data.
 addData(){
@@ -24,20 +18,16 @@ addData(){
      echo ${bold}"Inserted !!!"            
     fi   
 } 
+
 #Updating Data
 updateData(){
-    read -p "Enter Old Data of Employee: " oldData
-    read -p "Enter New Data of Employee: " newData     
-    sed -i "s/$oldData/$newData/" /Employee_Data.txt
-    if [ $? -eq 0 ]
-        then
-            echo "Updated !!!"        
-    fi
+    source update.sh
     }
+
 #DeleteData
 deleteData(){
     read -p "Data to Delete of Employee: " dataToDelete
-    grep -v $dataToDelete  /Employee_Data.txt > tmpfile && mv tmpfile /Employee_Data.txt          
+    grep -v "$dataToDelete " Employee_Data.txt > tmpfile && mv tmpfile Employee_Data.txt          
      if [ $? -eq 0 ]
         then
             echo "Deleted !!!"        
@@ -46,12 +36,17 @@ deleteData(){
 #UpdateData
 getById(){
     read -p "Enter Data to Search: " searchData
-    cat /Employee_Data.txt | grep $searchData
+    cat Employee_Data.txt | grep "$searchData "
 }
 
 #Get ALL Data
 getAllData(){
-    cat /Employee_Data.txt
+    echo ${bold}${red}"-----------------------------------------------------"
+    echo ${green}${remove}"EId      Name      Surname     Exp     Customer"
+    echo ${yellow}
+    cat Employee_Data.txt 
+    echo ${bold}${red}"-----------------------------------------------------"
+    
 } 
 #Exit 
 doExit(){

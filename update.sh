@@ -1,21 +1,19 @@
 #!/bin/bash
 getById(){
     searchData=$1
-    echo "-----------------------------------------------------"
-    echo "EId      Name      Surname     Exp     Customer"
-    cat Employee_Data.txt | grep $searchData
-    echo "-----------------------------------------------------"
-
+    echo ${bold}"-----------------------------------------------------"
+    echo ${green}${remove}"EId      Name      Surname     Exp     Customer"
+    cat Employee_Data.txt | grep "$searchData " 
+    echo ${bold}"-----------------------------------------------------"
+    return $searchData
 }
 
 
-# cat Employee_Data.txt| grep 2 | cut -d " " -f "3"
-
 updateByName(){
-read -p "Enter Old Name of Employee: " oldData
-    read -p "Enter New Name of Employee: " newData 
-    # cat Employee_Data.txt| cut -d " " -f 1 | grep -q $emp_id                                                                                                                                                                                                                                                                             
-    # if [ $? -eq 0 ]    
+    searchData=$1
+    oldData=`cat Employee_Data.txt| grep "$searchData "  | cut -d " " -f 3`
+    echo "Present Name is : $oldData"
+    read -p "Enter New Name of Employee: " newData      
     sed -i "s/$oldData/$newData/" Employee_Data.txt
     if [ $? -eq 0 ]
         then
@@ -24,27 +22,59 @@ read -p "Enter Old Name of Employee: " oldData
     fi
 }
 
+
+updateBySurname(){
+    searchData=$1
+    oldData=`cat Employee_Data.txt | grep "$searchData "  | cut -d " " -f 5`
+    echo "Present Surname is : $oldData"
+    read -p "Enter New Surname of Employee: " newData      
+    sed -i "s/$oldData/$newData/" Employee_Data.txt
+    if [ $? -eq 0 ]
+        then
+            echo "Surname Updated !!!"   
+            exit 0     
+    fi
+}
+
+
+updateByCustomer(){
+    searchData=$1
+    oldData=`cat Employee_Data.txt | grep "$searchData "  | cut -d " " -f 9`
+    echo "Present Customer is : $oldData"
+    read -p "Enter New Customer of Employee: " newData      
+    sed -i "s/$oldData/$newData/" Employee_Data.txt
+    if [ $? -eq 0 ]
+        then
+            echo "Customer Updated !!!"   
+            exit 0     
+    fi
+}
+
+
+
+
+
 updateData(){
-    read -p "Enter the id which you want to edit: " uid
+    read -p ${red}"Enter the id which you want to edit: " uid
     getById $uid
-    echo "You can only edit name, surname and customer"
-    echo "What Do you want to edit"
+    echo ${yellow}${bold}"You can only edit name, surname and customer"
+    echo ${cyan}"What Do you want to edit"
 
 PS3=${red}"Please Enter Your Choice: ${green}"
-echo ${green}
+echo ${green}${remove}
 Options=("Name" "Surname" "Customer"  "Exit")
 
 select option in "${Options[@]}"     
     do
         case $option in
             "Name")
-                updateByName
+                updateByName $uid
                 ;;
             "Surname")
-                echo "sname"
+                updateBySurname $uid
                 ;;
             "Customer")
-                echo "cust"
+                updateByCustomer $uid
                 ;;
             "Exit")
                 exit 0 

@@ -15,7 +15,7 @@ addData(){
            echo ${bold}"Id Already present Try another id "
     else
      echo "$emp_id ---- $emp_name ---- $emp_sname ---- ${emp_exp}Years ---- $emp_cust" >> Employee_Data.txt
-     echo ${bold}"Inserted !!!"            
+     echo ${bold}"Inserted !!!"${remove}            
     fi   
 } 
 
@@ -56,24 +56,63 @@ doExit(){
 
 
  
-PS3=${red}"Please Enter Your Choice: ${green}"
+PS3=${red}"Please Enter Menu Choice: ${green}"
 echo ${green}
 Options=("Add Employee" "Edit Employee" "Delete Employee" "Search Employee" "View All Employee Data" "Exit")
-
 select option in "${Options[@]}"     
     do
         case $option in
             "Add Employee")
-                addData
+                while true; 
+                    do
+                        addData
+                        read -p "Do you wish to Add more?" yn
+                    case $yn in
+                        [Yy]* )  addData ;;
+                        [Nn]* ) break;;
+                        *) echo "Please answer yes or no.";;
+                    esac
+                done
                 ;;
             "Edit Employee")
-                updateData
+                
+                 while true; 
+                    do
+                        updateData
+                        read -p "Do you wish to Edit more?" yn
+                    case $yn in
+                        [Yy]* )  updateData ;;
+                        [Nn]* ) break;;
+                        *) echo "Please answer yes or no.";;
+                    esac
+                done
                 ;;
             "Delete Employee")
-                deleteData
+                
+                 while true; 
+                    do
+                        deleteData
+                        read -p "Do you wish to Delete more?" yn
+                    case $yn in
+                        [Yy]* )  deleteData ;;
+                        [Nn]* ) break;;
+                        *) echo "Please answer yes or no.";;
+                    esac
+                done
                 ;;
+                
             "Search Employee")
-                getById
+                
+                 while true; 
+                    do
+                        getById
+                        read -p "Do you wish to Get more Records?" yn
+                    case $yn in
+                        [Yy]* )  getById ;;
+                        [Nn]* ) break;;
+                        *) echo "Please answer yes or no.";;
+                    esac
+                done
                 ;;
             "View All Employee Data")
                 getAllData

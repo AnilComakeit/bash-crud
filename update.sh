@@ -18,7 +18,7 @@ updateByName(){
     if [ $? -eq 0 ]
         then
             echo "Name Updated !!!"   
-            exit 0     
+                 
     fi
 }
 
@@ -32,7 +32,7 @@ updateBySurname(){
     if [ $? -eq 0 ]
         then
             echo "Surname Updated !!!"   
-            exit 0     
+                 
     fi
 }
 
@@ -46,7 +46,7 @@ updateByCustomer(){
     if [ $? -eq 0 ]
         then
             echo "Customer Updated !!!"   
-            exit 0     
+                 
     fi
 }
 
@@ -77,7 +77,7 @@ select option in "${Options[@]}"
                 updateByCustomer $uid
                 ;;
             "Exit")
-                exit 0 
+                break 
                 ;;
             *) echo "Invalid Option $REPLY";;
         esac

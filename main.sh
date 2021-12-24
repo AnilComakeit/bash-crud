@@ -57,6 +57,9 @@ doExit(){
 
  
 PS3=${red}"Please Enter Menu Choice: ${green}"
+
+echo ${red} 
+figlet -t -k  "Employee CRUD"
 echo ${green}
 Options=("Add Employee" "Edit Employee" "Delete Employee" "Search Employee" "View All Employee Data" "Exit")
 select option in "${Options[@]}"     
